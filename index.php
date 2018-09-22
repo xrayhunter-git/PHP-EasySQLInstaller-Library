@@ -2,21 +2,22 @@
     require_once 'core/init.php';
 
     // Load Database and create a schema.
+    $dbInstructions = array(
+        'type' => 'pdo', // Optional [Defaults: PDO]
+        'sql_ip' => '127.0.0.1', // Required
+        'sql_port' => 3306, // Required
+        'sql_user' => 'root', // Required
+        'sql_pass' => '', // Required
+        'sql_db' => 'easySQLLib' // Optional
+    );
     $db = DB::create(
-        array(
-            'type' => 'pdo', // Optional [Defaults: PDO]
-            'sql_ip' => '127.0.0.1', // Required
-            'sql_port' => 3306, // Required
-            'sql_user' => 'root', // Required
-            'sql_pass' => '', // Required
-            'sql_db' => 'easySQLLib' // Optional
-        ),
+        $dbInstructions,
         true
     );
 
     // Easy Database
     // Query and Grabbing data.
-    /*if ($result = $db->query("SELECT ? + ?", array(5, 5)))
+    if ($result = $db->query("SELECT ? + ?", array(5, 5)))
     {
         if ($result->hasErrors())
         {
@@ -29,7 +30,7 @@
             foreach($result->getResults() as $res)
                 var_dump($res);
         }  
-    }*/
+    }
 
     // Manually Creating a Table
     if ($result = $db->createTable("users", array(
@@ -105,4 +106,7 @@
     */
     
     // Easy Database Installer
+    $dbInstaller = DBInstaller::create($dbInstructions);
+    echo $dbInstaller->addPackage(new Test_Package());
+    $dbInstaller->execute();
 ?>

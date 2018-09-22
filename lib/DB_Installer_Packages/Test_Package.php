@@ -1,9 +1,7 @@
 <?php
-    namespace sql\installer\packages;
-
-    class TestPackage extends DB_Installer_Package
+    class Test_Package extends DB_Installer_Packager
     {
-        private function __construct()
+        public function __construct()
         {
             parent::addPackageTable("test", array(
                 "id" => "INT(11) NOT NULL AUTO_INCREMENT",

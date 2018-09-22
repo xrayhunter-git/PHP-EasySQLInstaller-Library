@@ -395,7 +395,7 @@
             return $this->_sql;
         }
 
-        public function getCount() : int
+        public function getCount() : uint
         {
             return $this->_count;
         }

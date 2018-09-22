@@ -1,7 +1,5 @@
 <?php
-    namespace sql\installer;
-
-    class DB_Installer_Package
+    class DB_Installer_Packager
     {
         private $_product = array();
 
