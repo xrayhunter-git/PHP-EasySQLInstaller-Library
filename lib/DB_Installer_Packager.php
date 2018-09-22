@@ -21,7 +21,14 @@
 
         protected function addPackageTableRow($table, $row = array())
         {
-            array_push($this->_product[$table]["rows"], $row);
+            $keys = array_keys($row);
+            $x = 0;
+
+            foreach($row as $val)
+            {
+                $this->_product[$table]["rows"][$keys[$x]] = $val;
+                $x++;
+            }
         }
 
         protected function setPackageTablePrimaryKey($table, $target)
@@ -36,15 +43,6 @@
 
         public function build()
         {
-            foreach ($this->_product as $table)
-            {
-                if ($table["primary"] != "")
-                {
-                    array_push($table["rows"], "PRIMARY KEY(`". $table["primary"] ."`)");
-                    $table["primary"] = null;
-                }
-            }
-
             return $this->_product;
         }
     }

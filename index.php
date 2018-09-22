@@ -67,6 +67,7 @@
             echo 'Created the user\' with in the table:<br/>';
         }
     }
+
     // Get
     if ($result = $db->get("users", array('username', '=', 'John Doe')))
     {
@@ -83,7 +84,6 @@
     }
 
     // Delete
-    
     if ($result = $db->delete("users", array("username", "=", "John Doe")))
     {
         if ($result->hasErrors())
@@ -107,6 +107,21 @@
     
     // Easy Database Installer
     $dbInstaller = DBInstaller::create($dbInstructions);
-    echo $dbInstaller->addPackage(new Test_Package());
-    $dbInstaller->execute();
+    $dbInstaller->addPackage(new Test_Package());
+    if($execution = $dbInstaller->execute())
+    {
+        foreach($execution->getExecutions() as $data)
+        {
+            
+            echo '<hr/>';
+            echo "<br/>" . $data->getExecutedSQL() . "<br/>";
+            echo "<br/>"; 
+
+            foreach($data->getErrors() as $err)
+                echo $err['message'] . '<br/>';
+
+            echo "<br/>";
+            echo '<hr/>';
+        }
+    }
 ?>
