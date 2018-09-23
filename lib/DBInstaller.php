@@ -9,6 +9,9 @@
         private function __construct($type = array())
         {
             $this->_db = DB::create();
+
+            // Add the Extension of the DB_Installer_Packages to automatically be loaded to be used.
+            Extensionator::addExtension("DB_Installer_Packages");
         }
 
         public static function create($data = array()) : DBInstaller
